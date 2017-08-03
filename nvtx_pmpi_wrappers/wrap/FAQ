@@ -1,0 +1,17 @@
+Q:  I'm compiling a shared library to be used for the NAS Parallel 
+Benchmarks.  What do I do?
+
+A:  This works:
+
+        ./wrap.py -f -g -o end2end.c end2end.w
+        mpicc -DPIC -fPIC -I.. -DARCH_SANDY_BRIDGE -DARCH_062D -c end2end.c 
+        mpicc -shared -Wl,-soname,libend2end.so -o ../lib/libend2end.so ../msr_core.o ../msr_rapl.o ../blr_util.o end2end.o 
+        mpicc -L../lib -o harness.end2end harness.c -lend2end
+
+Items of interest:
+
+1)  The flags to wrap.py will generate fortran wrappers and well as re-entry guards.
+2)  DPIC must be used along with fPIC.
+3)  The above relies on LD_LIBRARY_PATH being correct and it probably shouldn't.
+
+
