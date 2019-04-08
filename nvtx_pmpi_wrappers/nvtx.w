@@ -27,7 +27,7 @@
 #include <nvToolsExt.h>
 nvtxDomainHandle_t nvtx_mpi_domain;
 // Setup event category name
-{{fn name MPI_Init}}
+{{fn name MPI_Init MPI_Init_thread}}
   nvtx_mpi_domain = nvtxDomainCreateA("MPI");
   {{callfn}}
 {{endfn}}
