@@ -26,21 +26,40 @@
  */
 #include <nvToolsExt.h>
 nvtxDomainHandle_t nvtx_mpi_domain;
-// Setup event category name
+
+// Initialize handles to NVTX registered strings
+{{foreachfn name MPI_Send MPI_Recv MPI_Allreduce MPI_Reduce MPI_Wait MPI_Waitany
+  MPI_Waitall MPI_Waitsome MPI_Gather MPI_Gatherv MPI_Scatter MPI_Scatterv
+  MPI_Allgather MPI_Allgatherv MPI_Alltoall MPI_Alltoallv MPI_Alltoallw MPI_Bcast
+  MPI_Sendrecv MPI_Barrier MPI_Isend MPI_Irecv}}
+  nvtxStringHandle_t nvtx_{{name}}_message = 0;
+{{endforeachfn}}
+
+// Setup event category name and register strings
 {{fn name MPI_Init}}
   nvtx_mpi_domain = nvtxDomainCreateA("MPI");
+
+  // Register string for each MPI function
+  {{foreachfn name MPI_Send MPI_Recv MPI_Allreduce MPI_Reduce MPI_Wait MPI_Waitany
+  MPI_Waitall MPI_Waitsome MPI_Gather MPI_Gatherv MPI_Scatter MPI_Scatterv
+  MPI_Allgather MPI_Allgatherv MPI_Alltoall MPI_Alltoallv MPI_Alltoallw MPI_Bcast
+  MPI_Sendrecv MPI_Barrier MPI_Isend MPI_Irecv}}
+  nvtx_{{name}}_message = nvtxDomainRegisterStringA(nvtx_mpi_domain, "{{name}}");
+  {{endforeachfn}}
+
   {{callfn}}
 {{endfn}}
+
 // Wrap select MPI functions with NVTX ranges
 {{fn name MPI_Send MPI_Recv MPI_Allreduce MPI_Reduce MPI_Wait MPI_Waitany
 MPI_Waitall MPI_Waitsome MPI_Gather MPI_Gatherv MPI_Scatter MPI_Scatterv
 MPI_Allgather MPI_Allgatherv MPI_Alltoall MPI_Alltoallv MPI_Alltoallw MPI_Bcast
 MPI_Sendrecv MPI_Barrier MPI_Isend MPI_Irecv}}
-  nvtxEventAttributes_t eventAttrib = {0}; 
+  nvtxEventAttributes_t eventAttrib = {0};
   eventAttrib.version = NVTX_VERSION;
   eventAttrib.size = NVTX_EVENT_ATTRIB_STRUCT_SIZE;
-  eventAttrib.messageType = NVTX_MESSAGE_TYPE_ASCII; 
-  eventAttrib.message.ascii  = "{{name}}";
+  eventAttrib.messageType = NVTX_MESSAGE_TYPE_REGISTERED;
+  eventAttrib.message.registered  = nvtx_{{name}}_message;
   eventAttrib.category = 999;
 
   nvtxDomainRangePushEx(nvtx_mpi_domain, &eventAttrib);

@@ -4,7 +4,7 @@ libnvtx_pmpi.so: nvtx_pmpi.o
 nvtx_pmpi.o: nvtx_pmpi.c
 	mpicc -I$(CUDA_HOME)/include -DPIC -fPIC -c $^ -o $@
 nvtx_pmpi.c: nvtx.w
-	python wrap/wrap.py -f -o $@ $^
+	python2.7 wrap/wrap.py -f -o $@ $^
 
 .PHONY: clean
 clean:
