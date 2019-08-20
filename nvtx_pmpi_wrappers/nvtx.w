@@ -31,7 +31,11 @@ nvtxDomainHandle_t nvtx_mpi_domain;
 {{foreachfn name MPI_Send MPI_Recv MPI_Allreduce MPI_Reduce MPI_Wait MPI_Waitany
   MPI_Waitall MPI_Waitsome MPI_Gather MPI_Gatherv MPI_Scatter MPI_Scatterv
   MPI_Allgather MPI_Allgatherv MPI_Alltoall MPI_Alltoallv MPI_Alltoallw MPI_Bcast
-  MPI_Sendrecv MPI_Barrier MPI_Isend MPI_Irecv}}
+  MPI_Sendrecv MPI_Barrier MPI_Isend MPI_Irecv MPI_Ibarrier MPI_Ibcast
+  MPI_Igather MPI_Igatherv MPI_Iscatter MPI_Iscatterv MPI_Iallgather
+  MPI_Iallgatherv MPI_Ialltoall MPI_Ialltoallv MPI_Ialltoallw MPI_Ireduce
+  MPI_Iallreduce MPI_Ireduce_scatter_block MPI_Ireduce_scatter MPI_Iscan
+  MPI_Iexscan}}
   nvtxStringHandle_t nvtx_{{name}}_message = 0;
 {{endforeachfn}}
 
@@ -43,7 +47,11 @@ nvtxDomainHandle_t nvtx_mpi_domain;
   {{foreachfn name MPI_Send MPI_Recv MPI_Allreduce MPI_Reduce MPI_Wait MPI_Waitany
   MPI_Waitall MPI_Waitsome MPI_Gather MPI_Gatherv MPI_Scatter MPI_Scatterv
   MPI_Allgather MPI_Allgatherv MPI_Alltoall MPI_Alltoallv MPI_Alltoallw MPI_Bcast
-  MPI_Sendrecv MPI_Barrier MPI_Isend MPI_Irecv}}
+  MPI_Sendrecv MPI_Barrier MPI_Isend MPI_Irecv MPI_Ibarrier MPI_Ibcast
+  MPI_Igather MPI_Igatherv MPI_Iscatter MPI_Iscatterv MPI_Iallgather
+  MPI_Iallgatherv MPI_Ialltoall MPI_Ialltoallv MPI_Ialltoallw MPI_Ireduce
+  MPI_Iallreduce MPI_Ireduce_scatter_block MPI_Ireduce_scatter MPI_Iscan
+  MPI_Iexscan }}
   nvtx_{{name}}_message = nvtxDomainRegisterStringA(nvtx_mpi_domain, "{{name}}");
   {{endforeachfn}}
 
@@ -54,7 +62,11 @@ nvtxDomainHandle_t nvtx_mpi_domain;
 {{fn name MPI_Send MPI_Recv MPI_Allreduce MPI_Reduce MPI_Wait MPI_Waitany
 MPI_Waitall MPI_Waitsome MPI_Gather MPI_Gatherv MPI_Scatter MPI_Scatterv
 MPI_Allgather MPI_Allgatherv MPI_Alltoall MPI_Alltoallv MPI_Alltoallw MPI_Bcast
-MPI_Sendrecv MPI_Barrier MPI_Isend MPI_Irecv}}
+MPI_Sendrecv MPI_Barrier MPI_Isend MPI_Irecv MPI_Ibarrier MPI_Ibcast
+  MPI_Igather MPI_Igatherv MPI_Iscatter MPI_Iscatterv MPI_Iallgather
+  MPI_Iallgatherv MPI_Ialltoall MPI_Ialltoallv MPI_Ialltoallw MPI_Ireduce
+  MPI_Iallreduce MPI_Ireduce_scatter_block MPI_Ireduce_scatter MPI_Iscan
+  MPI_Iexscan }}
   nvtxEventAttributes_t eventAttrib = {0};
   eventAttrib.version = NVTX_VERSION;
   eventAttrib.size = NVTX_EVENT_ATTRIB_STRUCT_SIZE;
