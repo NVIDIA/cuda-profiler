@@ -54,5 +54,4 @@ function call will appear in the range.
 
 Known Limitations
 -----------------
-* Asynchronous MPI routines are not implemented because any data movement
-  incurred as a result of these calls will not occur during the range.
+* Asynchronous MPI routines may not accurately reflect data movement
