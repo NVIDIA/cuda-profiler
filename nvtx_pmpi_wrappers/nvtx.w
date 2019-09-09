@@ -74,7 +74,7 @@ MPI_Sendrecv MPI_Barrier MPI_Isend MPI_Irecv MPI_Ibarrier MPI_Ibcast
   eventAttrib.message.registered  = nvtx_{{name}}_message;
   eventAttrib.category = 999;
 
-  nvtxDomainRangePushEx(nvtx_mpi_domain, &eventAttrib);
+  nvtxRangeId_t id = nvtxDomainRangeStartEx(nvtx_mpi_domain, &eventAttrib);
   {{callfn}}
-  nvtxDomainRangePop(nvtx_mpi_domain);
+  nvtxDomainRangeEnd(nvtx_mpi_domain,id);
 {{endfn}}
