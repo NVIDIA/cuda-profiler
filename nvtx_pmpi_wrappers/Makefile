@@ -8,4 +8,4 @@ nvtx_pmpi.c: nvtx.w
 
 .PHONY: clean
 clean:
-	rm -f *.o *.so nvtx_pmpi.c
+	rm -f *.o libnvtx_pmpi.so nvtx_pmpi.c
